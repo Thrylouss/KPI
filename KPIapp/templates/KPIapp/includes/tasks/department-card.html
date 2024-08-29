@@ -1,0 +1,51 @@
+<div class="main-table">
+    {% for department in departments  %}
+        <div class="main-table-user">
+        <h2>{{ department.name }}</h2>
+        <table class="table-tasks">
+            <tr>
+                    <td style="width: 25%"><b>Title</b></td>
+                    <td style="width: 7.5%"><b>Status</b></td>
+                    <td style="width: 7.5%"><b>Priority</b></td>
+                    <td style="width: 10%"><b>Responsible</b></td>
+                    <td style="width: 15%"><b>Deadline</b></td>
+                    <td style="width: 15%"><b>Ended At</b></td>
+                    <td style="width: 5%"><b>Mark</b></td>
+                    <td style="width: 10%"><b>Created by</b></td>
+                    <td style="width: 5%"><b>Action</b></td>
+            </tr>
+            {% for task in department.get_tasks %}
+                    <tr class="
+                    {% if task.status == 'DONE'  %}
+                    	table-done
+                    {% elif task.status == 'EXPIRED' %}
+                        table-expired
+                    {% endif %} " {% if request.user.role.name == 'Supervisor'  %}
+                    	onclick="window.location.href='{% url 'edit_tasks' task_id=task.id %}'"
+                    {% endif %} >
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>{{ task.priority }}</td>
+                    <td>{{ task.user }}</td>
+                    <td>{{ task.deadline }}</td>
+                    <td>{{ task.ended_at }}</td>
+                    <td>{{ task.mark }}</td>
+                    <td>{{ task.boss }}</td>
+                    <td>
+                        {% if request.user.role.name == 'Supervisor' %}
+                            	<a href="{% url 'delete_tasks' task_id=task.id %}" style="margin: 0 0 0 10px;">
+                                <button class="table-delete table-button"><i class='bx bx-user-x' ></i></button>
+                                </a>
+                            {% elif task.user == request.user %}
+                                <a href="{% url 'edit_tasks_employee' task_id=task.id %}">
+                                    <button class="table-edit table-button"><i class='bx bx-edit-alt'></i></button>
+                                </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+    {% endfor %}
+    </div>
+</div>

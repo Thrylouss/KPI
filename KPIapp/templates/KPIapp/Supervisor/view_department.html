@@ -1,0 +1,56 @@
+{% extends 'UserApp/layouts/base-template.html' %}
+{% load static %}
+
+{% block title %}
+	Main Page
+{% endblock %}
+
+{% block content %}
+    {% include 'KPIapp/includes/headers.html' %}
+
+    <div class="view_employees">
+        <div class="employee-block">
+            <div class="table-header">
+                <h2>All Employees</h2>
+                <hr>
+                <a class="table-add-button" href="{% url 'add_department' %}">
+                    <button class="add-button">Add Department<i class='bx bxs-user-plus' ></i></button>
+                </a>
+            </div>
+
+            <div>
+                <table class="my-table">
+                    <tr>
+                        <td class="icon"><b>Roll No</b></td>
+                        <td class="table-username"><b>Name</b></td>
+                        <td class="table-username"><b>Responsible</b></td>
+                        <td><b>Num Of Employees</b></td>
+                        <td><b>Employees</b></td>
+                        <td><b>Action</b></td>
+                    </tr>
+                    {% for user in departments %}
+                        <tr>
+                            <td class="icon">{{ forloop.counter }}</td>
+                            <td class="table-username">{{ user.name }}</td>
+                            <td class="table-username">{{ user.responsible }}</td>
+                            <td>{{ user.users.count }}</td>
+                            <td>{{ user.users.all|join:", " }}</td>
+
+                            <td class="table-action">
+                                <a href="{% url 'edit_department' department_id=user.id %}">
+                                    <button class="table-edit table-button"><i class='bx bx-edit-alt'></i></button>
+                                </a>
+                                <a href="{% url 'delete_department' department_id=user.id %}">
+                                    <button class="table-delete table-button"><i class='bx bx-user-x' ></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

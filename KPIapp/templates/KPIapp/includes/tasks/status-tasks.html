@@ -1,0 +1,42 @@
+<div class="container-status">
+    <div>
+        <h2 class="priority-low">New</h2>
+        {% for task in tasks_status.tasks_new %}
+            <div class="status-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h2 class="priority-medium">In Progress</h2>
+        {% for task in tasks_status.tasks_in_progress %}
+            <div class="status-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h2 style="background-color: rgba(0,128,0,0.78)" class="priority-high">Done</h2>
+        {% for task in tasks_status.tasks_done %}
+            <div class="status-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h2 class="priority-critical">Canceled</h2>
+        {% for task in tasks_status.tasks_canceled %}
+            <div class="status-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h2 class="priority-critical">Expired</h2>
+        {% for task in tasks_status.tasks_expired %}
+            <div class="status-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

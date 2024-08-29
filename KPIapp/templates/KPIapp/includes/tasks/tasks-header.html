@@ -1,0 +1,14 @@
+<div class="header-tasks">
+    <div class="header-tasks-info">
+        <a href="{% url 'view_tasks' %}">All Tasks</a>
+        <a href="{% url 'status_tasks' %}">By Status</a>
+        <a href="{% url 'priority_tasks' %}">By Priority</a>
+        <a href="{% url 'department_tasks' %}">By Department</a>
+        <a href="{% url 'staff_tasks' %}">By Staff</a>
+    </div>
+    {% if request.user.role.name == 'Supervisor' %}
+    	<a class="text-right" href="{% url 'add_tasks' %}">Add Task</a>
+    {% endif %}
+
+</div>
+<hr>

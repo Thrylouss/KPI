@@ -1,0 +1,91 @@
+{% load static %}
+
+<header>
+    <div class="header-block">
+        <div class="image-text">
+            <div class="image">
+                <img src="{% static 'img/logo.png' %}" alt="">
+            </div>
+            <div class="text header-text">
+                <span>My Stat</span>
+            </div>
+        </div>
+        <div class="header-list-employee">
+            <div>
+                <i class='bx bx-menu icon-header'></i>
+            </div>
+            <div class="header-setting">
+                <div class="bx-notification" style="display: none">
+                    {% if request.user.get_notification %}
+                    	{% for notification in request.user.get_notification %}
+                    	<p style="background-color:
+                        {% if notification.status == False %}
+                    		gray; width: 100%
+                        {% elif notification.status == True %}
+                            green;
+                    	{% endif %} "
+                            onclick="window.location.href='{% url 'edit_tasks_employee' task_id=notification.task_id  %}'">{{ notification.text }}</p>
+                        {% endfor %}
+                    {% else %}
+                    	<p>No notifications</p>
+                    {% endif %}
+                </div>
+                <div class="notification">a<i class='bx bx-bell icon-header'></i></div>
+
+                <div onclick="window.location.href='{% url 'user_profile' user_id=request.user.id %}'">
+                    <p>{{ request.user.username }}</p>
+                    <i class='bx bx-dots-vertical-rounded icon-header'></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="sidebar">
+        <div class="user-box">
+            <div class="user-info">
+                {% if user.image %}
+                    <img class="avatar" src="{{ request.user.image.url }}" alt="">
+                {% else %}
+                    <img class="avatar" src="{% static 'img/default_avatar.jpg' %}" alt="">
+                {% endif %}
+                <p>{{ request.user.username }}</p>
+                <p>{{ request.user.role.name }}</p>
+            </div>
+        </div>
+        <div class="menu-bar">
+            <div class="menu-bar-block">
+                <div class="menu-block">
+                    <a href="{% url 'supervisor' %}" class="menu-block-text">
+                        <i class='bx bx-home-alt icon-block'></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+                <div class="menu-block">
+                    <a href="{% url 'view_tasks' %}" class="menu-block-text">
+                        <i class='bx bx-task icon-block'></i>
+                        <span>Tasks</span>
+                    </a>
+                </div>
+                {% if request.user.role.name == 'Supervisor' %}
+                	<div class="menu-block">
+                    <a href="{% url 'view_employee' %}" class="menu-block-text">
+                        <i class='bx bx-user icon-block'></i>
+                        <span>Employees</span>
+                    </a>
+                </div>
+                <div class="menu-block">
+                    <a href="{% url 'view_department' %}" class="menu-block-text">
+                        <i class='bx bx-briefcase-alt icon-block' ></i>
+                        <span>Departments</span>
+                    </a>
+                </div>
+                {% endif %}
+                <div class="menu-block">
+                    <a href="{% url 'logOut' %}" class="menu-block-text log-out">
+                        <i class='bx bx-log-out icon-block'></i>
+                        <span>Log Out</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

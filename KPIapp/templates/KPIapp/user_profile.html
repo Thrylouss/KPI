@@ -1,0 +1,60 @@
+{% extends 'UserApp/layouts/base-template.html' %}
+{% load static %}
+
+{% block title %}
+	Main Page
+{% endblock %}
+
+{% block content %}
+    {% include 'KPIapp/includes/headers.html' %}
+
+    <div class="user-profile">
+        <h2>User Profile</h2>
+        <hr>
+
+        <div style="display: flex;justify-content: space-between">
+            <div class="user-about">
+                <div class="user-about-image">
+                    {% if user.image %}
+                        <img class="user-profile-image" src="{{ user.image.url }}" alt="">
+                    {% else %}
+                        <img class="user-profile-image" src="{% static 'img/default_avatar.jpg' %}" alt="">
+                    {% endif %}
+                    <div class="user-info-text">
+                        <p>{{ user.username }}</p>
+                        <p>{{ user.role.name }}</p>
+                    </div>
+                </div>
+                <p class="total">Total tasks: {{ user.get_tasks.count }}</p>
+                <div class="user-progress">
+                    Progress: {{ user.get_employment }}%
+                </div>
+            </div>
+            <div class="user-about-me">
+                <div style="display: flex; justify-content: space-between">
+                    <h2>About me</h2>
+                    {% if user == request.user %}
+                        <a href="{% url 'edit_employee' employee_id=user.id %}">
+                        <button class="">Edit profile</button>
+                    </a>
+                    {% endif %}
+                </div>
+                <hr>
+                <div class="user-about-me-info">
+                    <p>Phone: {{ user.phone }}</p>
+                    <p>Email: {{ user.email }}</p>
+                    <p>Gender: {{ user.gender }}</p>
+                    <p>Department: {{ user.get_departament }}</p>
+                </div>
+                <hr>
+                <div style="margin-top: 20px;">
+                    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                    <br>
+                    <p>{{ user.about }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

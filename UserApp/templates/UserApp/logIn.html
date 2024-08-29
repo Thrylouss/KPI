@@ -1,0 +1,19 @@
+{% extends 'UserApp/layouts/base-template.html' %}
+
+{% block title %}
+	Log In
+{% endblock %}
+
+{% block content %}
+    <div class="login-background">
+        <h2 style="color: white">login: shohruh</h2>
+        <h2 style="color: white">login: Sh2004Sh</h2>
+        <form autocomplete="off" class="my-form" action="" method="post">
+            <h2>LOGIN</h2>
+            {% csrf_token %}
+            {{ form }}
+            <button>Sign Up</button>
+        </form>
+    </div>
+
+{% endblock %}

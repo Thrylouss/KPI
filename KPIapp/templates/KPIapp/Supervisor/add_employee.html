@@ -1,0 +1,23 @@
+{% extends 'UserApp/layouts/base-template.html' %}
+
+{% block title %}
+	Main Page
+{% endblock %}
+
+{% block content %}
+    {% include 'KPIapp/includes/headers.html' %}
+
+    <div class="add-employee">
+        <h2>Add Employee</h2>
+        <hr>
+        <form class="add-employee-form" action="javascript:history.back()" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <div class="button-center">
+                <button class="save">Save</button>
+                <a class="cancel" href="javascript:history.back()">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

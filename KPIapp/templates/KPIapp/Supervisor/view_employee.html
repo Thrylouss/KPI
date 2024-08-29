@@ -1,0 +1,88 @@
+{% extends 'UserApp/layouts/base-template.html' %}
+{% load static %}
+
+{% block title %}
+	Main Page
+{% endblock %}
+
+{% block content %}
+    {% include 'KPIapp/includes/headers.html' %}
+
+    <div class="view_employees">
+        <div class="employee-block">
+            <div class="table-header">
+                <h2>All Employees</h2>
+                <hr>
+                <a class="table-add-button" href="{% url 'add_employee' %}">
+                    <button class="add-button">Add Employee<i class='bx bxs-user-plus' ></i></button>
+                </a>
+            </div>
+            <form method="get" id="sortForm">
+                <div class="sort">
+                    <div class="sort-by">
+                        <label for="sort_by">Sort by:</label>
+                        <select name="sort_by" id="sort_by" onchange="this.form.submit()">
+                            <option value="id" {% if request.GET.sort_by == "id" %}selected{% endif %}>ID</option>
+                            <option value="username" {% if request.GET.sort_by == "username" %}selected{% endif %}>Username</option>
+                            <option value="email" {% if request.GET.sort_by == "email" %}selected{% endif %}>Email</option>
+                            <option value="first_name" {% if request.GET.sort_by == "first_name" %}selected{% endif %}>First Name</option>
+                            <option value="last_name" {% if request.GET.sort_by == "last_name" %}selected{% endif %}>Last Name</option>
+                            <option value="phone" {% if request.GET.sort_by == "phone" %}selected{% endif %}>Phone</option>
+                            <option value="gender" {% if request.GET.sort_by == "gender" %}selected{% endif %}>Gender</option>
+                            <option value="departments__name" {% if request.GET.sort_by == "departments__name" %}selected{% endif %}>Department</option>
+                        </select>
+                    </div>
+                    <div class="search" >
+                        <label for="search">Search</label>
+                        <input onchange="this.form.submit()" name="search_by" id="search" type="text" placeholder="Введите имя...">
+                    </div>
+                </div>
+            </form>
+
+            <div>
+                <table class="my-table">
+                    <tr>
+                        <td class="icon"><b><i class='bx bx-user-circle'></i></b></td>
+                        <td class="icon"><b>Roll No</b></td>
+                        <td class="table-username"><b>First Name</b></td>
+                        <td class="table-username"><b>Last Name</b></td>
+                        <td><b>Username</b></td>
+                        <td class="table-username"><b>Role</b></td>
+                        <td class="table-username"><b>Department</b></td>
+                        <td><b>Phone</b></td>
+                        <td><b>Email</b></td>
+                        <td><b>Action</b></td>
+                    </tr>
+                    {% for user in users %}
+                        <tr onclick="window.location.href='{% url 'user_profile' user_id=user.id %}';">
+                            {% if user.image %}
+                                <td class="table-avatar"><img src="{{ request.user.image.url }}" alt=""></td>
+                            {% else %}
+                                <td class="table-avatar"><img src="{% static 'img/default_avatar.jpg' %}" alt=""></td>
+                            {% endif %}
+                            <td class="icon">{{ forloop.counter }}</td>
+                            <td>{{ user.first_name }}</td>
+                            <td>{{ user.last_name }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.role.name }}</td>
+                            <td>{{ user.get_departament.name }}</td>
+                            <td class="table-email">{{ user.phone }}</td>
+                            <td class="table-email">{{ user.email }}</td>
+                            <td class="table-action">
+                                <a href="{% url 'edit_employee' employee_id=user.id %}">
+                                    <button class="table-edit table-button"><i class='bx bx-edit-alt'></i></button>
+                                </a>
+                                <a href="{% url 'delete_employee' employee_id=user.id %}">
+                                    <button class="table-delete table-button"><i class='bx bx-user-x' ></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

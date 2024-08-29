@@ -1,0 +1,34 @@
+<div class="container-priority">
+    <div>
+        <h2 class="priority-low">Low</h2>
+        {% for task in tasks_priority.tasks_low %}
+            <div class="priority-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h2 class="priority-medium">Medium</h2>
+        {% for task in tasks_priority.tasks_medium %}
+            <div class="priority-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h2 class="priority-high">High</h2>
+        {% for task in tasks_priority.tasks_high %}
+            <div class="priority-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h2 class="priority-critical">Critical</h2>
+        {% for task in tasks_priority.tasks_critical %}
+            <div class="priority-block">
+            {% include 'KPIapp/includes/tasks/task-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

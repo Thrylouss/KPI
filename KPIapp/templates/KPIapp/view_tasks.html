@@ -1,0 +1,16 @@
+{% extends 'UserApp/layouts/base-template.html' %}
+
+{% block title %}
+	Main Page
+{% endblock %}
+
+{% block content %}
+    {% include 'KPIapp/includes/headers.html' %}
+
+    <div class="container">
+        {% include 'KPIapp/includes/tasks/tasks-header.html' %}
+
+        {% include include_template %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'UserApp/layouts/base-template.html' %}
+
+{% block title %}
+	Main Page
+{% endblock %}
+
+{% block content %}
+    {% include 'KPIapp/includes/headers.html' %}
+
+    <div class="main-container">
+        <div>
+            <h2>Dashboard</h2>
+            <div>
+                {% include 'KPIapp/dashboard.html' %}
+            </div>
+            <div class="users-info">
+                <div class="users-list">
+                    {% for user in users %}
+                        {% include 'KPIapp/includes/users-list.html' %}
+                    {% endfor %}
+                </div>
+                <div class="users-tasks">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['New', 'In Progress', 'Done', 'Canceled', 'Expired'],
+      datasets: [{
+        label: 'Total Tasks: {{ tasks.count }}',
+        data: {{ tasks_status }},
+        borderWidth: 1,
+        backgroundColor: [
+          'rgba(37,133,0,0.4)',
+          'rgba(235,172,54,0.4)',
+          'rgba(135,255,87,0.4)',
+          'rgba(255,0,0,0.4)',
+          'rgba(161,0,0,0.4)'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+<div class="user" draggable="true" data-username="{{ user.username }}" data-user-id="{{ user.id }}">
+    <div class="user-li">
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.role }}</p>
+    </div>
+    <div class="employment">
+            <div class="percentage">
+            <div class="bar" style="width: {{ user.get_employment }}%">
+                employment
+            </div>
+        </div>
+        {{ user.get_employment }}%
+    </div>
+</div>

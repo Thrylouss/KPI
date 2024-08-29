@@ -1,0 +1,17 @@
+{% extends 'UserApp/layouts/base-template.html' %}
+
+{% block title %}
+	Main Page
+{% endblock %}
+
+{% block content %}
+    {% include 'KPIapp/includes/headers.html' %}
+    <div id="tasks-list">
+            <form class="add-tasks-form" id="userForm" action="" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button style="margin-top: 250px" class="add-task-button" type="submit">Save</button>
+                <a href="javascript:history.back()" class="add-task-button" style="background-color: #FE5C5CFF">Cancel</a>
+            </form>
+        </div>
+{% endblock %}

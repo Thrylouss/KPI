@@ -1,0 +1,18 @@
+<div style="width: 100%"
+    {% if request.user.role.name == 'Supervisor' %}
+	onclick="window.location.href='{% url 'edit_tasks' task_id=task.id %}'"
+     {% elif task.user == request.user %}
+     onclick="window.location.href='{% url 'edit_tasks_employee' task_id=task.id %}'"
+{% endif %}>
+    <p>{{ task.boss }}</p>
+    <h3>{{ task.title }}</h3>
+    <span class="task-status">
+    {% if request.path == '/view_tasks/status/' %}
+        {{ task.priority }}
+        {% else %}
+        {{ task.status }}
+    {% endif %}
+    </span>
+    <p>{{ task.deadline }}</p>
+    <p>{{ task.user }}</p>
+</div>
